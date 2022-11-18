@@ -24,9 +24,11 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.39.3",
     "react-icons": "^4.6.0",
+    "react-query": "^3.39.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.25",
     "miragejs": "^0.1.46",
