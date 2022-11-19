@@ -5,56 +5,30 @@ import {
   Flex,
   Heading,
   Icon,
+  Spinner,
   Table,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
-  Text,
-  useBreakpointValue,
-  Spinner
+  useBreakpointValue
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import { RiAddLine, RiPencilLine } from 'react-icons/ri'
-import { useQuery } from 'react-query'
-import { api } from '../../services/api'
 
 import { Header } from '../../components/Header'
 import { Pagination } from '../../components/Pagination'
 import { Sidebar } from '../../components/Sidebar'
+import { useUsers } from '../../services/hooks/useUsers'
 
 export default function UserList() {
   /**
    * @description isFetching é um loader de uma request de revalidação de dados
    * obsoleto, não é loader principal
    */
-  const { data, isLoading, isFetching, error } = useQuery(
-    'users',
-    async () => {
-      const { data } = await api.get('/users')
-
-      const users = data.users.map((user) => {
-        return {
-          ...user,
-          createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
-            day: '2-digit',
-            month: 'long',
-            year: 'numeric'
-          })
-        }
-      })
-
-      return users
-    },
-    {
-      /**
-       * @description tempo para considerar a request como valida
-       * aposar passar esse tempo será feito uma nova requisição
-       */
-      staleTime: 1000 * 5 /// $ seconds
-    }
-  )
+  const { data, isLoading, isFetching, error } = useUsers()
 
   const isWideVersion = useBreakpointValue({
     base: false,
