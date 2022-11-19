@@ -16,6 +16,7 @@ import {
   useBreakpointValue
 } from '@chakra-ui/react'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { RiAddLine, RiPencilLine } from 'react-icons/ri'
 
 import { Header } from '../../components/Header'
@@ -24,11 +25,12 @@ import { Sidebar } from '../../components/Sidebar'
 import { useUsers } from '../../services/hooks/useUsers'
 
 export default function UserList() {
+  const [page, setPage] = useState(1)
   /**
    * @description isFetching é um loader de uma request de revalidação de dados
    * obsoleto, não é loader principal
    */
-  const { data, isLoading, isFetching, error } = useUsers()
+  const { data, isLoading, isFetching, error } = useUsers(page)
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -44,7 +46,7 @@ export default function UserList() {
         <Box flex="1" borderRadius={8} bg="gray.800" p="8">
           <Flex mb="8" justify="space-between" align="center">
             <Heading size="lg" fontWeight="normal">
-              Usuários{' '}
+              Usuários
               {!isLoading && isFetching && (
                 <Spinner size="sm" color="gray.500" ml="4" />
               )}
@@ -86,7 +88,7 @@ export default function UserList() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {data.map((user) => (
+                  {data.users.map((user) => (
                     <Tr key={user.id}>
                       <Td px={['4', '4', '6']}>
                         <Checkbox colorScheme="pink" />
@@ -115,7 +117,11 @@ export default function UserList() {
                   ))}
                 </Tbody>
               </Table>
-              <Pagination />
+              <Pagination
+                totalCountOfRegisters={data.totalCount}
+                currentPage={page}
+                onPageChange={setPage}
+              />
             </>
           )}
         </Box>
