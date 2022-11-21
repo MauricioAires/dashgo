@@ -23,7 +23,7 @@ export function Pagination({
   registerPerPage = 10
 }: PaginationProps) {
   const siblingsCount = 1
-  const lastPage = Math.floor(totalCountOfRegisters / registerPerPage)
+  const lastPage = Math.ceil(totalCountOfRegisters / registerPerPage)
 
   const previousPages =
     currentPage > 1

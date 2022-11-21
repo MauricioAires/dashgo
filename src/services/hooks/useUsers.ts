@@ -5,7 +5,7 @@ type User = {
   id: string
   name: string
   email: string
-  createdAt: string
+  created_at: string
 }
 
 interface GetUsersResponse {
@@ -25,7 +25,7 @@ async function getUsers(page: number): Promise<GetUsersResponse> {
   const users = data.users.map((user) => {
     return {
       ...user,
-      createdAt: new Date(user.createdAt).toLocaleDateString('pt-BR', {
+      created_at: new Date(user.created_at).toLocaleDateString('pt-BR', {
         day: '2-digit',
         month: 'long',
         year: 'numeric'
@@ -42,6 +42,6 @@ export function useUsers(page: number) {
      * @description tempo para considerar a request como valida
      * aposar passar esse tempo será feito uma nova requisição
      */
-    staleTime: 1000 * 60 * 10 /// 10 minutos
+    staleTime: 1000 * 10 /// 10 segundos
   })
 }

@@ -1,4 +1,10 @@
-import { createServer, Factory, Model, Response } from 'miragejs'
+import {
+  createServer,
+  Factory,
+  Model,
+  Response,
+  ActiveModelSerializer
+} from 'miragejs'
 import { faker } from '@faker-js/faker'
 
 type User = {
@@ -9,6 +15,13 @@ type User = {
 
 export function makeServer() {
   const server = createServer({
+    /**
+     * @description Como lidar com os dados provindos da API
+     */
+    serializers: {
+      application: ActiveModelSerializer // permitir trabalhar com relacionamento
+    },
+
     models: {
       user: Model.extend<Partial<User>>({})
     },
