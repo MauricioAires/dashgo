@@ -42,6 +42,6 @@ export function useUsers(page: number) {
      * @description tempo para considerar a request como valida
      * aposar passar esse tempo será feito uma nova requisição
      */
-    staleTime: 1000 * 5 /// $ seconds
+    staleTime: 1000 * 60 * 10 /// 10 minutos
   })
 }
